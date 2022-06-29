@@ -1,6 +1,6 @@
-# wefind
+# WeFind
 
-A new Flutter project.
+A new Flutter project. To spread joy and love in Switzerland :)
 
 ## Getting Started
 
