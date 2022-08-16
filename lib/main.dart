@@ -44,12 +44,16 @@ class _MyHomePageState extends State<MyHomePage> {
       name: 'Adoray Lausanne',
       city: 'Lausanne',
       isVisible: false,
+      instagram: 'https://www.instagram.com/adoraylausanne/',
+      website: 'https://www.adoray.ch/orte/lausanne/',
     ),
     YouthGroup(
       id: 1,
       name: 'Other group',
       city: 'Lausanne',
       isVisible: false,
+      instagram: '',
+      website: '',
     )
   ];
 

@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:wefind/models/youth_group.dart';
 
@@ -52,12 +53,15 @@ class YouthGroupCard extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  print('insta pressed');
+                  // launchUrl(Uri.parse(widget.company.social_instagram.toString()));
+                  print('Insta pressed');
                 },
                 icon: const FaIcon(FontAwesomeIcons.instagram),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  print('Facebook pressed');
+                },
                 icon: const FaIcon(FontAwesomeIcons.facebook),
               )
             ],
