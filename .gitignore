@@ -1,3 +1,7 @@
+# DON'T PUSH THESE TWO TO GIT!
+android/app/src/main/AndroidManifest.xml
+web/index.html
+
 # Miscellaneous
 *.class
 *.log
@@ -9,6 +13,7 @@
 .history
 .svn/
 migrate_working_dir/
+
 
 # IntelliJ related
 *.iml

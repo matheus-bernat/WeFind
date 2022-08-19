@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:wefind/models/youth_group.dart';
-import 'package:wefind/youth_group_card.dart';
+import 'package:wefind/widgets/map_sample.dart';
+import 'widgets/youth_group_card.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,17 +16,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.red,
           textTheme: ThemeData.light().textTheme.copyWith(
-                bodyText1: TextStyle(
+                bodyText1: const TextStyle(
                   color: Color.fromRGBO(20, 51, 51, 1),
                 ),
-                bodyText2: TextStyle(
+                bodyText2: const TextStyle(
                   color: Color.fromARGB(255, 230, 225, 225),
                   fontWeight: FontWeight.bold
                 ),
                 headline6:
-                    TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'),
+                    const TextStyle(fontSize: 24, fontFamily: 'RobotoCondensed'),
               )),
-      home: const MyHomePage(title: 'WeFind'),
+      // home: MyHomePage(title: 'WeFind'),
+      home: MapSample(),
     );
   }
 }
@@ -68,12 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
+              padding: const EdgeInsets.all(5),
               child: Text(
                 'Lausanne',
                 style: Theme.of(context).textTheme.headline6,
               ),
-              padding: const EdgeInsets.all(5),
             ),
+            // const MapSample()
             IconButton(
               onPressed: () {
                 setState(() {
@@ -85,7 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             _youthGroups[0].isVisible
                 ? YouthGroupCard(_youthGroups[0])
-                : Text('nothing')
+                : Text('nothing'),
+            // MapSample(),
+
+
           ],
         ),
       ),

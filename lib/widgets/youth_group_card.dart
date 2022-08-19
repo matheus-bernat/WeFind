@@ -1,13 +1,14 @@
 ﻿import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:wefind/models/youth_group.dart';
 
 class YouthGroupCard extends StatelessWidget {
   final YouthGroup youthGroup;
 
-  YouthGroupCard(this.youthGroup);
+  // ignore: use_key_in_widget_constructors
+  const YouthGroupCard(this.youthGroup);
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +55,14 @@ class YouthGroupCard extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   // launchUrl(Uri.parse(widget.company.social_instagram.toString()));
+                  // ignore: avoid_print
                   print('Insta pressed');
                 },
                 icon: const FaIcon(FontAwesomeIcons.instagram),
               ),
               IconButton(
                 onPressed: () {
+                  // ignore: avoid_print
                   print('Facebook pressed');
                 },
                 icon: const FaIcon(FontAwesomeIcons.facebook),
