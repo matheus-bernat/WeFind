@@ -1,5 +1,4 @@
 ﻿import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
@@ -10,44 +9,57 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  final Completer<GoogleMapController> _controller = Completer();
+  late GoogleMapController mapController;
+  Set<Marker> markers = Set<Marker>();
+  double latLausanne = 46.518708;
+  double longLausanne = 6.6097896;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Google Maps'),
-      ),
-      body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
+      // appBar: AppBar(
+      //   title: TextField(
+      //     onSubmitted: (val) {
+      //       print(val);
+      //       lat = -22.7;
+      //       long = -48.07;
+      //       LatLng position = LatLng(lat, long);
+      //       mapController.moveCamera(CameraUpdate.newLatLng(position));
+
+      //       final Marker marker = Marker(
+      //         markerId: MarkerId('123456'),
+      //         position: position,
+      //         infoWindow: InfoWindow(
+      //           title: 'Casa do balta',
+      //           snippet: 'Piracicapa/SP',
+      //         ),
+      //       );
+      //       setState(() {
+      //         markers.add(marker);
+      //       });
+      //     },
+      //   ),
+      // ),
+      body: Container(
+        child: GoogleMap(
+          onMapCreated: _onMapCreated,
+          onCameraMove: (data) {
+            print(data);
+          },
+          onTap: (position) {
+            print(position);
+          },
+          initialCameraPosition: CameraPosition(
+            target: LatLng(latLausanne, longLausanne),
+            zoom: 12.97,
+          ),
+          markers: markers,
+        ),
       ),
     );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    // ignore: avoid_print
-    print('Going to lake');
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }
