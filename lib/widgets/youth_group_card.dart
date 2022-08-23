@@ -1,4 +1,6 @@
 ﻿import 'package:flutter/material.dart';
+import 'dart:io';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -10,66 +12,112 @@ class YouthGroupCard extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
   const YouthGroupCard(this.youthGroup);
 
+  Image getImage(String imageAddress) {
+    return Image.asset(youthGroup.imagesAddress);
+  }
+
   @override
   Widget build(BuildContext context) {
+    getImage(youthGroup.imagesAddress);
+
+    var screenSize = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
+
     return Card(
       elevation: 5,
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.local_fire_department),
-            title: Text(youthGroup.name,
-                style: Theme.of(context).textTheme.headline6),
-          ),
-          Image.asset('assets/images/adoray2.jpg'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Chip(
-                avatar: const Icon(
-                  Icons.access_time_sharp,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Mercredi 19h30',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-                backgroundColor: Theme.of(context).backgroundColor,
+      child: Container(
+        padding: EdgeInsets.only(bottom: 10),
+        margin: EdgeInsets.only(left: 10, right: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    youthGroup.name,
+                    style: theme.textTheme.headline2,
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          // launchUrl(Uri.parse(widget.company.social_instagram.toString()));
+                          // ignore: avoid_print
+                          print('Insta pressed');
+                        },
+                        icon: const FaIcon(FontAwesomeIcons.instagram),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          // ignore: avoid_print
+                          print('Facebook pressed');
+                        },
+                        icon: const FaIcon(FontAwesomeIcons.facebook),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              Chip(
-                avatar: const Icon(
-                  Icons.local_fire_department_outlined,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Louange',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-                backgroundColor: Theme.of(context).backgroundColor,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'ÉGLISE',
+                style: theme.textTheme.bodyText1!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  // launchUrl(Uri.parse(widget.company.social_instagram.toString()));
-                  // ignore: avoid_print
-                  print('Insta pressed');
-                },
-                icon: const FaIcon(FontAwesomeIcons.instagram),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(youthGroup.church, style: theme.textTheme.bodyText1),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'QUAND',
+                style: theme.textTheme.bodyText1!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
-              IconButton(
-                onPressed: () {
-                  // ignore: avoid_print
-                  print('Facebook pressed');
-                },
-                icon: const FaIcon(FontAwesomeIcons.facebook),
-              )
-            ],
-          )
-        ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(youthGroup.when, style: theme.textTheme.bodyText1),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'QUOI',
+                style: theme.textTheme.bodyText1!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(youthGroup.what, style: theme.textTheme.bodyText1),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'QUI SOMMES NOUS',
+                style: theme.textTheme.bodyText1!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                youthGroup.description,
+                style: theme.textTheme.bodyText1,
+              ),
+            ),
+            youthGroup.imagesAddress.isNotEmpty
+                ? Center(child: getImage(youthGroup.imagesAddress))
+                : Container(),
+          ],
+        ),
       ),
     );
   }

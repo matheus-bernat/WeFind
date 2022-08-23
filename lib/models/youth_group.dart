@@ -1,8 +1,16 @@
-﻿
+﻿import 'city.dart';
+
 class YouthGroup {
   final int id;
   final String name;
-  final String city;
+  final String description;
+  final String church;
+  final String when;
+  final String what;
+  final String imagesAddress;
+  final City city;
+  final double lat;
+  final double long;
   final String instagram;
   final String website;
   bool isVisible;
@@ -10,9 +18,16 @@ class YouthGroup {
   YouthGroup({
     required this.id,
     required this.name,
+    required this.description,
     required this.city,
-    required this.isVisible,
-    required this.instagram,
-    required this.website,
+    required this.church,
+    required this.when,
+    required this.what,
+    this.imagesAddress = '',
+    this.isVisible = false,
+    this.lat = -1,
+    this.long = -1,
+    this.instagram = '',
+    this.website = '',
   });
 }
