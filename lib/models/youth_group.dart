@@ -13,6 +13,8 @@ class YouthGroup {
   final double long;
   final String instagram;
   final String website;
+  final String facebook;
+  final String email;
   bool isVisible;
 
   YouthGroup({
@@ -29,5 +31,7 @@ class YouthGroup {
     this.long = -1,
     this.instagram = '',
     this.website = '',
+    this.facebook = '',
+    this.email = '',
   });
 }

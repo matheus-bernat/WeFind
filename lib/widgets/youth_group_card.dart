@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:wefind/models/youth_group.dart';
+import 'package:wefind/widgets/social_media_buttons.dart';
 
 class YouthGroupCard extends StatelessWidget {
   final YouthGroup youthGroup;
@@ -40,25 +41,7 @@ class YouthGroupCard extends StatelessWidget {
                     youthGroup.name,
                     style: theme.textTheme.headline2,
                   ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          // launchUrl(Uri.parse(widget.company.social_instagram.toString()));
-                          // ignore: avoid_print
-                          print('Insta pressed');
-                        },
-                        icon: const FaIcon(FontAwesomeIcons.instagram),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // ignore: avoid_print
-                          print('Facebook pressed');
-                        },
-                        icon: const FaIcon(FontAwesomeIcons.facebook),
-                      ),
-                    ],
-                  )
+                  SocialMediaButtons(youthGroup)
                 ],
               ),
             ),

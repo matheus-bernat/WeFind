@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: SizedBox(
           height: 60,
           child: Image.asset(
-            '../../assets/images/wefind-white.png',
+            'assets/images/wefind-white.png',
           ),
         ),
       ),

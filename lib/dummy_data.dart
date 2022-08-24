@@ -45,16 +45,20 @@ final List<YouthGroup> youthGroups = [
     long: 6.6094059,
     instagram: 'https://www.instagram.com/adoraylausanne/',
     website: 'https://www.adoray.ch/orte/lausanne/',
+    facebook: 'https://www.facebook.com/AdorayLausanne',
+    email: 'lausanne@adoray.ch',
   ),
   YouthGroup(
     id: 1,
-    name: 'VAF',
+    name: 'PAF',
     when: 'Une fois par mois (date variable), 19h-21h30',
-    what: 'Temps d\'enseignement et de partage précédé d\'un repas.',
+    what: '''Les Petits Artisans de François (PAF) est un groupe de jeune renanais qui a vu le jour quelques semaines après les JMJ de Cracovie en 2016 par des jeunes motivés de vivre, dans la paroisse de Renens des temps forts, conviviaux et solidaires, ayant, pour idéologie la prière tant connue de Saint François d’Assise, une prière de paix.''',
     church: 'Saint François d\'Assise, Renens',
     description: '''  ''',
     city: getCityByName('Lausanne'),
     instagram: '',
-    website: '',
+    website: 'http://www.pasaj.ch/groupe-paf-petits-artisans-de-francois/',
+    facebook: '',
+    email: 'sebastien.gaspoz@gmail.com',
   )
 ];
