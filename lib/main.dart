@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WeFind',
+      title: 'WeFind - Groupes de prière étudiants en Suisse',
       theme: AppTheme().themeData,
       home: HomeScreen(),
       debugShowCheckedModeBanner: false

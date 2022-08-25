@@ -33,7 +33,7 @@ class YouthGroupCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -41,7 +41,7 @@ class YouthGroupCard extends StatelessWidget {
                     youthGroup.name,
                     style: theme.textTheme.headline2,
                   ),
-                  SocialMediaButtons(youthGroup)
+                  SocialMediaButtons(youthGroup),
                 ],
               ),
             ),
@@ -96,6 +96,7 @@ class YouthGroupCard extends StatelessWidget {
                 style: theme.textTheme.bodyText1,
               ),
             ),
+            
             youthGroup.imagesAddress.isNotEmpty
                 ? Center(child: getImage(youthGroup.imagesAddress))
                 : Container(),

@@ -11,12 +11,11 @@ class SocialMediaButtons extends StatelessWidget {
 
   const SocialMediaButtons(this.youthGroup);
 
-
-
   Future openEmailApp(String email) async {
     final String subject = '';
     final String message = '';
-    final url = 'mailto:$email?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(message)}';
+    final url =
+        'mailto:$email?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(message)}';
     var urlParsed = Uri.parse(url);
     if (await canLaunchUrl(urlParsed)) {
       await launchUrl(urlParsed);
@@ -29,6 +28,8 @@ class SocialMediaButtons extends StatelessWidget {
       children: [
         youthGroup.instagram != ''
             ? IconButton(
+                padding: EdgeInsets.all(0),
+                iconSize: 15,
                 tooltip: 'Instagram',
                 splashRadius: 20,
                 onPressed: () {
@@ -39,6 +40,8 @@ class SocialMediaButtons extends StatelessWidget {
             : Container(),
         youthGroup.facebook != ''
             ? IconButton(
+                padding: EdgeInsets.all(0),
+                iconSize: 15,
                 tooltip: 'Facebook',
                 splashRadius: 20,
                 onPressed: () {
@@ -49,6 +52,8 @@ class SocialMediaButtons extends StatelessWidget {
             : Container(),
         youthGroup.email != ''
             ? IconButton(
+                padding: EdgeInsets.all(0),
+                iconSize: 15,
                 tooltip: 'Email',
                 splashRadius: 20,
                 onPressed: () {
@@ -59,12 +64,14 @@ class SocialMediaButtons extends StatelessWidget {
             : Container(),
         youthGroup.website != ''
             ? IconButton(
+                padding: EdgeInsets.all(0),
+                iconSize: 15,
                 tooltip: 'Website',
                 splashRadius: 20,
                 onPressed: () {
                   html.window.open(youthGroup.website, '_blank');
                 },
-                icon: const FaIcon(FontAwesomeIcons.globe),
+                icon: const FaIcon(FontAwesomeIcons.globe, ),
               )
             : Container(),
       ],
