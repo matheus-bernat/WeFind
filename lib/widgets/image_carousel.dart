@@ -19,8 +19,8 @@ class ImageCarousel extends StatelessWidget {
             ),
             itemBuilder: (context, index, realIdx) {
               return Padding(
-                padding: EdgeInsets.all(0),
-                child: Image.network(
+                padding: EdgeInsets.all(4),
+                child: Image.asset(
                   youthGroup.images[index],
                   fit: BoxFit.cover,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wefind/screens/youth_group_screen.dart';
 import 'firebase_options.dart';
 
 import 'design/app_theme.dart';
@@ -16,8 +17,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'WeFind - Groupes de prière étudiants en Suisse',
       theme: AppTheme().themeData,
-      home: HomeScreen(),
-      debugShowCheckedModeBanner: false
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (ctx) => HomeScreen(),
+        YouthGroupScreen.routeName: (ctx) => YouthGroupScreen()
+      },
     );
   }
 }

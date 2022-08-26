@@ -3,6 +3,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:wefind/models/youth_group.dart';
+import 'package:wefind/screens/youth_group_screen.dart';
 import 'package:wefind/widgets/image_carousel.dart';
 import 'package:wefind/widgets/social_media_buttons.dart';
 
@@ -12,9 +13,17 @@ class YouthGroupCard extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
   const YouthGroupCard(this.youthGroup);
 
+  void selectYouthGroup(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(
+      YouthGroupScreen.routeName,
+      arguments: {
+        'name': youthGroup.name,
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-
     var screenSize = MediaQuery.of(context).size;
     final theme = Theme.of(context);
 
@@ -31,9 +40,14 @@ class YouthGroupCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    youthGroup.name,
-                    style: theme.textTheme.headline2,
+                  InkWell(
+                    onTap: () {
+                      selectYouthGroup(context);
+                    },
+                    child: Text(
+                      youthGroup.name,
+                      style: theme.textTheme.headline2,
+                    ),
                   ),
                   SocialMediaButtons(youthGroup),
                 ],
