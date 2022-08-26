@@ -1,10 +1,9 @@
 ﻿import 'package:flutter/material.dart';
-import 'dart:io';
-
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:wefind/models/youth_group.dart';
+import 'package:wefind/widgets/image_carousel.dart';
 import 'package:wefind/widgets/social_media_buttons.dart';
 
 class YouthGroupCard extends StatelessWidget {
@@ -13,13 +12,8 @@ class YouthGroupCard extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
   const YouthGroupCard(this.youthGroup);
 
-  Image getImage(String imageAddress) {
-    return Image.asset(youthGroup.imagesAddress);
-  }
-
   @override
   Widget build(BuildContext context) {
-    getImage(youthGroup.imagesAddress);
 
     var screenSize = MediaQuery.of(context).size;
     final theme = Theme.of(context);
@@ -96,10 +90,7 @@ class YouthGroupCard extends StatelessWidget {
                 style: theme.textTheme.bodyText1,
               ),
             ),
-            
-            youthGroup.imagesAddress.isNotEmpty
-                ? Center(child: getImage(youthGroup.imagesAddress))
-                : Container(),
+            ImageCarousel(youthGroup),
           ],
         ),
       ),

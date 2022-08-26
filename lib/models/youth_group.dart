@@ -7,7 +7,7 @@ class YouthGroup {
   final String church;
   final String when;
   final String what;
-  final String imagesAddress;
+  final List<String> images;
   final City city;
   final double lat;
   final double long;
@@ -25,7 +25,7 @@ class YouthGroup {
     required this.church,
     required this.when,
     required this.what,
-    this.imagesAddress = '',
+    required this.images,
     this.isVisible = false,
     this.lat = -1,
     this.long = -1,
