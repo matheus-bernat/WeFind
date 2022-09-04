@@ -12,8 +12,6 @@ web/index.html
 .buildlog/
 .history
 .svn/
-migrate_working_dir/
-
 
 # IntelliJ related
 *.iml
@@ -24,7 +22,7 @@ migrate_working_dir/
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
-#.vscode/
+.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -36,6 +34,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+pubspec.lock
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -50,3 +49,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase
+functions/node_modules
+.firebase/*.cache

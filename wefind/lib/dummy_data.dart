@@ -69,3 +69,21 @@ final List<YouthGroup> youthGroups = [
     email: 'sebastien.gaspoz@gmail.com',
   )
 ];
+
+YouthGroup getYouthGroupByName(String name) {
+  for (var yg in youthGroups) {
+    String normalizedName = yg.name.replaceAll(' ', '-').toLowerCase();
+    if (name == normalizedName) {
+      return yg;
+    }
+  }
+  return YouthGroup(
+      id: -1,
+      name: 'error',
+      description: 'description',
+      city: City(id: -1, name: 'error', lat: 0, long: 0, zoom: 0),
+      church: '',
+      when: '',
+      what: '',
+      images: []);
+}

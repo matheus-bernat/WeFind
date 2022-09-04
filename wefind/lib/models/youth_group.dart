@@ -34,4 +34,8 @@ class YouthGroup {
     this.facebook = '',
     this.email = '',
   });
+
+  String getRouteName() {
+    return '/${name.replaceAll(' ', '-').toLowerCase()}'; // e.g. 'Adoray Lausanne' -> '/adoray-lausanne'
+  }
 }

@@ -1,8 +1,8 @@
 ﻿import 'package:flutter/material.dart';
-import 'package:wefind/models/youth_group.dart';
 
-import 'package:wefind/widgets/youth_group_card.dart';
+import '../widgets/youth_group_card.dart';
 import '../dummy_data.dart';
+import '../models/youth_group.dart';
 import '../models/city.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: SizedBox(
-                width: 600,
+                width: 700,
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: getYouthGroupCards(_chosenCity),

@@ -18,9 +18,14 @@ class MyApp extends StatelessWidget {
       title: 'WeFind - Groupes de prière étudiants en Suisse',
       theme: AppTheme().themeData,
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (ctx) => HomeScreen(),
-        YouthGroupScreen.routeName: (ctx) => YouthGroupScreen()
+      onGenerateRoute: (settings) {
+        if (settings.name == '/') {
+          return MaterialPageRoute(builder: (context) => HomeScreen());
+        }
+        var uri = Uri.parse(settings.name!);
+        // print(uri.pathSegments);
+        String name = uri.pathSegments[0];
+        return MaterialPageRoute(builder: (context) => YouthGroupScreen(name));
       },
     );
   }

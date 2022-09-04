@@ -15,10 +15,7 @@ class YouthGroupCard extends StatelessWidget {
 
   void selectYouthGroup(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
-      YouthGroupScreen.routeName,
-      arguments: {
-        'name': youthGroup.name,
-      },
+      youthGroup.getRouteName(),
     );
   }
 
