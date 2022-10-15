@@ -1,6 +1,8 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:wefind/screens/group_form_screen.dart';
 
 import '../widgets/youth_group_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../dummy_data.dart';
 import '../models/youth_group.dart';
 import '../models/city.dart';
@@ -11,19 +13,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final Stream<QuerySnapshot> youthGroups = FirebaseFirestore.instance
+      .collection('/cities/lausanne/youth-groups')
+      .snapshots(); // TODO need to adapt this to have one per city
+
+  final Stream<QuerySnapshot> testCities = FirebaseFirestore.instance
+      .collection('/cities').snapshots(); 
+
   int? _value = 0;
-  // final List<String> cities = ['Lausanne', 'Genève', 'Fribourg'];
-  final List<YouthGroup> _ygs = youthGroups;
+  // final List<YouthGroup> _ygs = youthGroups;
   City _chosenCity = getCityByName('Lausanne');
 
-  List<YouthGroupCard> getYouthGroupCards(City city) {
-    List<YouthGroupCard> ygCards = [];
-    for (var yg in _ygs) {
-      if (yg.city == city) {
-        ygCards.add(YouthGroupCard(yg));
-      }
-    }
-    return ygCards;
+  // List<YouthGroupCard> getYouthGroupCards(City city) {
+  //   List<YouthGroupCard> ygCards = [];
+  //   for (var yg in _ygs) {
+  //     if (yg.city == city) {
+  //       ygCards.add(YouthGroupCard(yg));
+  //     }
+  //   }
+  //   return ygCards;
+  // }
+
+  void goToGroupFormScreen(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(GroupFormScreen.routeName);
   }
 
   @override
@@ -39,6 +52,18 @@ class _HomeScreenState extends State<HomeScreen> {
             'assets/images/wefind-white.png',
           ),
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              goToGroupFormScreen(context);
+            },
+            child: Text('Nouveau groupe'),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: Text('Sur nous'),
+          ),
+        ],
       ),
       body: Container(
         width: screenSize.width,
@@ -66,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         _value = selected ? index : null;
                         _chosenCity = getCityById(index);
+                        // print(_chosenCity.name);                        
                       });
                     },
                   );
@@ -75,9 +101,30 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: SizedBox(
                 width: 700,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: getYouthGroupCards(_chosenCity),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: youthGroups,
+                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      Text('Something went wrong.');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text('Loading...');
+                    }
+                    final data = snapshot.requireData;
+                    return ListView.builder(itemCount: data.size, itemBuilder: (context, index) {
+                      String youthGroupName = data.docs[index]['name'];
+
+                      // Create a YouthGroup object using the group ID 
+                      
+                      // --> maybe I can't do that. instead, pass all of the attributes to the
+                      // youth group card, instead of passing a whole object
+                      // Pass the object to YouthGroupCard
+                      // ...
+                      // Return YouthGroupCard
+                      // ...
+                      return Text('The name is ${data.docs[index]['name']}');
+                    },);
+                  },
                 ),
               ),
             ),

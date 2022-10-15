@@ -1,5 +1,5 @@
 name: wefind
-description: A new Flutter project.
+description: Trouves un groupe de prière catholique étudiant en Suisse!
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^1.21.0
   universal_html: ^2.0.8
   carousel_slider: ^4.1.1
+  cloud_firestore: ^3.5.1
 
 dev_dependencies:
   flutter_test:
