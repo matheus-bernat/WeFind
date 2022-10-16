@@ -13,27 +13,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  
   final Stream<QuerySnapshot> youthGroups = FirebaseFirestore.instance
       .collection('/cities/lausanne/youth-groups')
-      .snapshots(); // TODO need to adapt this to have one per city
+      .snapshots();
 
-  final Stream<QuerySnapshot> testCities = FirebaseFirestore.instance
-      .collection('/cities').snapshots(); 
+  // Create a reference to the cities collection
+  final citiesRef = FirebaseFirestore.instance.collection('cities');
+
+  List<City> cities = [];
+
+  Future<void> getData() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await citiesRef.get();
+    for (var doc in querySnapshot.docs) {
+      City newCity = City(name: doc.get('name'));
+      cities.add(newCity);
+    }
+  }
 
   int? _value = 0;
-  // final List<YouthGroup> _ygs = youthGroups;
-  City _chosenCity = getCityByName('Lausanne');
-
-  // List<YouthGroupCard> getYouthGroupCards(City city) {
-  //   List<YouthGroupCard> ygCards = [];
-  //   for (var yg in _ygs) {
-  //     if (yg.city == city) {
-  //       ygCards.add(YouthGroupCard(yg));
-  //     }
-  //   }
-  //   return ygCards;
-  // }
 
   void goToGroupFormScreen(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(GroupFormScreen.routeName);
@@ -83,15 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: List<Widget>.generate(cities.length, (index) {
                   return ChoiceChip(
                     label: Text(
-                      getCityById(index).name,
+                      cities[index].name, // here I need the "name" field of the city document
                       style: theme.textTheme.bodyText1,
                     ),
                     selected: _value == index,
                     onSelected: (bool selected) {
                       setState(() {
                         _value = selected ? index : null;
-                        _chosenCity = getCityById(index);
-                        // print(_chosenCity.name);                        
+                        // print(_chosenCity.name);
                       });
                     },
                   );
@@ -103,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 700,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: youthGroups,
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
                       Text('Something went wrong.');
                     }
@@ -111,19 +110,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Text('Loading...');
                     }
                     final data = snapshot.requireData;
-                    return ListView.builder(itemCount: data.size, itemBuilder: (context, index) {
-                      String youthGroupName = data.docs[index]['name'];
-
-                      // Create a YouthGroup object using the group ID 
-                      
-                      // --> maybe I can't do that. instead, pass all of the attributes to the
-                      // youth group card, instead of passing a whole object
-                      // Pass the object to YouthGroupCard
-                      // ...
-                      // Return YouthGroupCard
-                      // ...
-                      return Text('The name is ${data.docs[index]['name']}');
-                    },);
+                    return ListView.builder(
+                      itemCount: data.size,
+                      itemBuilder: (context, index) {
+                        // Create a YouthGroup object
+                        YouthGroup yg = YouthGroup(
+                          name: data.docs[index]['name'],
+                          church: data.docs[index]['church'],
+                          who: data.docs[index]['who'],
+                          when: data.docs[index]['when'],
+                        );
+                        return YouthGroupCard(yg);
+                      },
+                    );
                   },
                 ),
               ),

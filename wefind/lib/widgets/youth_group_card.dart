@@ -97,11 +97,11 @@ class YouthGroupCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                youthGroup.description,
+                youthGroup.who,
                 style: theme.textTheme.bodyText1,
               ),
             ),
-            ImageCarousel(youthGroup),
+            // ImageCarousel(youthGroup),
           ],
         ),
       ),

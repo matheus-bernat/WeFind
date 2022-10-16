@@ -9,7 +9,11 @@ class YouthGroupScreen extends StatelessWidget {
   String youthGroupName;
   YouthGroupScreen(this.youthGroupName);
 
-  late final YouthGroup _youthGroup = getYouthGroupByName(youthGroupName);
+  late final YouthGroup _youthGroup = YouthGroup(
+      name: 'error',
+      church: '',
+      who: '');
+// getYouthGroupByName(youthGroupName);
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +104,11 @@ class YouthGroupScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          _youthGroup.description,
+                          _youthGroup.who,
                           style: theme.textTheme.bodyText1,
                         ),
                       ),
-                      ImageCarousel(_youthGroup),
+                      // ImageCarousel(_youthGroup),
                     ],
                   ),
                 ),
