@@ -1,6 +1,9 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/gestures.dart'; // for TapGesture of link GoogleMaps
+import 'package:universal_html/html.dart' as html;
 
 import 'package:wefind/models/youth_group.dart';
 import 'package:wefind/screens/youth_group_screen.dart';
@@ -53,14 +56,33 @@ class YouthGroupCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'ÉGLISE',
+                'OÙ',
                 style: theme.textTheme.bodyText1!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(youthGroup.church, style: theme.textTheme.bodyText1),
+              // child: Text(youthGroup.church, style: theme.textTheme.bodyText1),
+              child: RichText(
+                  text: TextSpan(
+                style: theme.textTheme.bodyText1,
+                children: [
+                  TextSpan(
+                    text: youthGroup.church,
+                  ),
+                  TextSpan(text: ' '),
+                  TextSpan(
+                    text: '(in Google Maps)',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        print('here is the youth group link ${youthGroup.googleMapsLink}');
+                        html.window.open(youthGroup.googleMapsLink, '_blank');
+                      },
+                  )
+                ],
+              )),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:wefind/screens/group_form_screen.dart';
 
+import '../help_functions.dart';
 import '../widgets/youth_group_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import '../dummy_data.dart';
@@ -8,17 +9,51 @@ import '../models/youth_group.dart';
 import '../models/city.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/';
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<City>> citiesFuture;
+  late Future<List<YouthGroup>> ygsFuture;
+  String chosenCityName = '';
 
   @override
   void initState() {
     super.initState();
     citiesFuture = getCities();
+  }
+
+  Future<List<YouthGroup>> getYgs(String cityName) async {
+    String docName = normalizeCityName(cityName);
+
+    final ygsRef = FirebaseFirestore.instance
+        .collection('cities')
+        .doc(docName)
+        .collection('youth-groups');
+    QuerySnapshot querySnapshot = await ygsRef.get();
+    List<YouthGroup> ygs = [];
+
+    for (var doc in querySnapshot.docs) {
+      print(doc.data());
+      YouthGroup yg = YouthGroup(
+        name: doc.get('name'),
+        church: doc.get('church'),
+        who: doc.get('who'),
+        when: doc.get('when'),
+        what: doc.get('what'),
+        googleMapsLink: doc.get('googleMapsLink'),
+        // website: doc.get('website'),
+        // instagram: doc.get('instagram'),
+        // facebook: doc.get('facebook'),
+        // email: doc.get('email'),
+      );
+
+      ygs.add(yg);
+    }
+    return ygs;
   }
 
   Future<List<City>> getCities() async {
@@ -52,15 +87,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          TextButton(
+          // TextButton(
+          //   onPressed: () {
+          //     goToGroupFormScreen(context);
+          //   },
+          //   style: ButtonStyle(
+          //       foregroundColor:
+          //           MaterialStateProperty.all(theme.indicatorColor)),
+          //   child: Text(
+          //     'Nouveau groupe',
+          //     style: theme.textTheme.bodyLarge,
+          //   ),
+          // ),
+          IconButton(
             onPressed: () {
               goToGroupFormScreen(context);
             },
-            child: Text('Nouveau groupe'),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Text('Sur nous'),
+            icon: Icon(
+              Icons.add,
+              size: 25,
+            ),
+            splashRadius: 20,
           ),
         ],
       ),
@@ -78,18 +125,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 25),
-              child: FutureBuilder(
+              // helpful: https://www.youtube.com/watch?v=lkpPg0ieklg
+              child: FutureBuilder<List<City>>(
                   future: citiesFuture,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       final error = snapshot.error;
                       return Text('$error');
                     } else if (snapshot.hasData) {
-
-                      List<City>? data = snapshot.data! as List<City>?;
+                      List<City> data = snapshot.data!;
 
                       return Wrap(
-                        children: List<Widget>.generate(data!.length, (index) {
+                        children: List<Widget>.generate(data.length, (index) {
                           return ChoiceChip(
                             label: Text(
                               data[index].name,
@@ -99,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onSelected: (bool selected) {
                               setState(() {
                                 _value = selected ? index : null;
-                                // print(_chosenCity.name);
+                                chosenCityName = data[index].name;
                               });
                             },
                           );
@@ -110,37 +157,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                   }),
             ),
-            // Expanded(
-            //   child: SizedBox(
-            //     width: 700,
-            //     child: StreamBuilder<QuerySnapshot>(
-            //       stream: youthGroups,
-            //       builder: (BuildContext context,
-            //           AsyncSnapshot<QuerySnapshot> snapshot) {
-            //         if (snapshot.hasError) {
-            //           Text('Something went wrong.');
-            //         }
-            //         if (snapshot.connectionState == ConnectionState.waiting) {
-            //           return Text('Loading...');
-            //         }
-            //         final data = snapshot.requireData;
-            //         return ListView.builder(
-            //           itemCount: data.size,
-            //           itemBuilder: (context, index) {
-            //             // Create a YouthGroup object
-            //             YouthGroup yg = YouthGroup(
-            //               name: data.docs[index]['name'],
-            //               church: data.docs[index]['church'],
-            //               who: data.docs[index]['who'],
-            //               when: data.docs[index]['when'],
-            //             );
-            //             return YouthGroupCard(yg);
-            //           },
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // ),
+            Expanded(
+              child: SizedBox(
+                width: 700,
+                child: FutureBuilder<List<YouthGroup>>(
+                  future: getYgs(chosenCityName),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<YouthGroup> data = snapshot.data!;
+                      return ListView.builder(
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return YouthGroupCard(data[index]);
+                        },
+                      );
+                    } else {
+                      return Text('No ygs to show');
+                    }
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -1,25 +1,27 @@
 ﻿import 'city.dart';
 
 class YouthGroup {
-  final String name;
-  final String who;
-  final String church;
+  String name;
+  String who;
+  String church;
   // final City city;
-  final String when;
-  final String what;
+  String when;
+  String what;
   // final List<String> images;
-  final String instagram;
-  final String website;
-  final String facebook;
-  final String email;
+  String instagram;
+  String googleMapsLink;
+  String website;
+  String facebook;
+  String email;
 
   YouthGroup({
     required this.name,
     required this.who,
     // required this.city,
     required this.church,
-    this.when = '',
-    this.what = '',
+    required this.when,
+    required this.what,
+    required this.googleMapsLink,
     // this.images = '',
     this.instagram = '',
     this.website = '',

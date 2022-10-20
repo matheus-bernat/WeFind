@@ -10,10 +10,12 @@ class YouthGroupScreen extends StatelessWidget {
   YouthGroupScreen(this.youthGroupName);
 
   late final YouthGroup _youthGroup = YouthGroup(
+      when: '',
+      what: '',
       name: 'error',
       church: '',
-      who: '');
-// getYouthGroupByName(youthGroupName);
+      who: '',
+      googleMapsLink: '');
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,8 @@ class YouthGroupScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                        padding: const EdgeInsets.only(
+                            left: 8.0, top: 8.0, bottom: 8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
